@@ -455,6 +455,27 @@ BOOL xf_keyboard_handle_special_keys(xfContext* xfc, KeySym keysym)
 		}
 	}
 
+//mrhihi
+	if (keysym == XK_Left)
+	{
+		if (mod.Ctrl && mod.Alt) {
+			xf_toggle_move(xfc, TRUE);
+			if (!xfc->fullscreen) {
+				xf_toggle_fullscreen(xfc);
+			}
+		}
+	}
+
+    if (keysym == XK_Right)
+	{
+		if (mod.Ctrl && mod.Alt) {
+			if (xfc->fullscreen) {
+				xf_toggle_fullscreen(xfc);
+			}
+			xf_toggle_move(xfc, FALSE);
+		}
+	}
+
 	if (keysym == XK_period)
 	{
 		if (mod.Ctrl && mod.Alt)

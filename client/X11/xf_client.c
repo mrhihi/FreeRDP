@@ -508,6 +508,19 @@ void xf_create_window(xfContext *xfc)
 	}
 }
 
+// mrhihi
+void xf_toggle_move(xfContext *xfc, BOOL isLeft)
+{
+	xfWindow *window = xfc->window;
+	rdpSettings *settings = xfc->instance->settings;
+	int left = isLeft?settings->DesktopPosX:settings->DesktopPosX;
+	int top = isLeft?settings->DesktopPosY:settings->DesktopPosY + 1;
+
+	if (!isLeft) {
+		xf_SetWindowDecorations(xfc, xfc->window, FALSE);
+	}
+	XMoveResizeWindow(xfc->display, window->handle, left, top, window->width, window->height);
+}
 void xf_toggle_fullscreen(xfContext* xfc)
 {
 	Pixmap contents = 0;

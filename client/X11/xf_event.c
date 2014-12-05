@@ -893,6 +893,28 @@ static BOOL xf_event_PropertyNotify(xfContext* xfc, XEvent* event, BOOL app)
 	return TRUE;
 }
 
+// mrhihi
+static BOOL xf_event_my_suppress_events(xfContext* xfc, rdpWindow* window, XEvent*event)
+{
+/*
+	KeySym keysym;
+	char str[256];
+
+	XLookupString((XKeyEvent*) event, str, sizeof(str), &keysym, NULL);
+
+	if (keysym == XK_Tab)
+	{
+		XF_MODIFIER_KEYS mod = { 0 };
+		xk_keyboard_get_modifier_keys(xfc, &mod);
+		if (mod.Ctrl)
+		{
+			return TRUE;
+		}
+	}
+*/
+	return FALSE;
+}
+
 static BOOL xf_event_suppress_events(xfContext* xfc, rdpWindow* window, XEvent*event)
 {
 	if (!xfc->remote_app)
@@ -994,6 +1016,9 @@ BOOL xf_event_process(freerdp* instance, XEvent* event)
 				return TRUE;
 		}
 	}
+	// mrhihi
+	if (xf_event_my_suppress_events(xfc, window, event))
+		return TRUE;
 
 	xf_event_execute_action_script(xfc, event);
 
